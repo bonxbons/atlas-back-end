@@ -5,26 +5,38 @@ their TODO list progress"""
 import requests
 import sys
 
-if __name__ == "__main__":
+def get_employee_todo_progress(employee_id):
+    user_url = f'https://jsonplaceholder.typicode.com/users/{employee_id}'
+    user_response = requests.get(user_url)
 
-    userId = sys.argv[1]
-    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                        .format(userId))
+    if user_response.status_code != 200:
+        print(f'Error: Unable to fetch user data for employee ID {employee_id}')
+        return
 
-    name = user.json().get('name')
+    user_data = user_response.json()
+    user_name = user_data['name']
 
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
-    totalTasks = 0
-    completed = 0  # number of completed tasks
+    todos_url = f'https://jsonplaceholder.typicode.com/todos?userId={employee_id}'
+    todos_response = requests.get(todos_url)
 
-    for task in todos.json():
-        if task.get('userId') == int(userId):
-            totalTasks += 1
-            if task.get('completed'):
-                completed += 1
+    if todos_response.status_code != 200:
+        print(f'Error: Unable to fetch todo data for employee ID {employee_id}')
+        return
 
-    print('Employee {} is done with tasks({}/{}):'
-          .format(name, completed, totalTasks))
+    total_tasks = len(todos_response.json())
+    completed_tasks = sum(task['completed'] for task in todos_response.json())
 
-    print('\n'.join(["\t " + task.get('title') for task in todos.json()
-          if task.get('userId') == int(userId) and task.get('completed')]))
+    print(f'Employee {user_name} is done with tasks({completed_tasks}/{total_tasks}):')
+
+    completed_tasks_titles = [task['title'] for task in todos_response.json() if task['completed']]
+
+    for task_title in completed_tasks_titles:
+        print(f'\t{task_title}')
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print('Usage: python3 0-gather_data_from_an_API.py <employee_id>')
+        sys.exit(1)
+
+    employee_id = int(sys.argv[1])
+    get_employee_todo_progress(employee_id)
