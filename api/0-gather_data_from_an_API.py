@@ -12,6 +12,7 @@ if __name__ == "__main__":
                         .format(userId))
 
     name = user.json().get('name')
+    print(f'Employee Name: {name}') # Add this line to print the employee name
 
     todos = requests.get('https://jsonplaceholder.typicode.com/todos')
     totalTasks = 0
