@@ -1,42 +1,49 @@
 #!/usr/bin/python3
-"""
-Script that, using a REST API, for a given employee ID, returns information
-about his/her TODO list progress.
-"""
+"""For a given employee ID, returns information about
+their TODO list progress"""
+
 import requests
-from sys import argv
+import sys
 
-if __name__ == "__main__":
-    # Check if the correct number of arguments is provided
-    if len(argv) != 2:
-        print("Usage: {} employee_id".format(argv[0]))
-        exit(1)
+def get_employee_todo_progress(employee_id):
+    user_url = f'https://jsonplaceholder.typicode.com/users/{employee_id}'
+    user_response = requests.get(user_url)
 
-    # Base URL for the API
-    base_url = 'https://jsonplaceholder.typicode.com/'
+    if user_response.status_code != 200:
+        print(f'Error: Unable to fetch user data for employee ID {employee_id}')
+        return
 
-    # Employee ID provided as command-line argument
-    employee_id = argv[1]
-
-    # Fetch user info
-    user_response = requests.get(base_url + 'users/{}'.format(employee_id))
     user_data = user_response.json()
-    employee_name = user_data.get('name')
+    user_name = user_data['name']
 
-    # Fetch todos for the user
-    todos_response = requests.get(base_url + 'todos?userId={}'.format(employee_id))
-    todos_data = todos_response.json()
+    todos_url = 'https://jsonplaceholder.typicode.com/todos'
+    todos_response = requests.get(todos_url)
 
-    # Count total and completed tasks
-    total_tasks = len(todos_data)
-    completed_tasks = sum(1 for todo in todos_data if todo.get('completed'))
+    if todos_response.status_code != 200:
+        print(f'Error: Unable to fetch todo data for employee ID {employee_id}')
+        return
 
-    # Print employee information
-    print("Employee {} is done with tasks({}/{}):".format(
-        employee_name, completed_tasks, total_tasks))
+    total_tasks = 0
+    completed_tasks = 0
 
-    # Print titles of completed tasks
-    for todo in todos_data:
-        if todo.get('completed'):
-            print("\t {}".format(todo.get('title')))
+    for task in todos_response.json():
+        if task['userId'] == employee_id:
+            total_tasks += 1
+            if task['completed']:
+                completed_tasks += 1
 
+    print(f'Employee {user_name} is done with tasks({completed_tasks}/{total_tasks}):')
+
+    done_tasks = [task['title'] for task in todos_response.json()
+                  if task['userId'] == employee_id and task['completed']]
+
+    for task_title in done_tasks:
+        print(f'\t{task_title}')
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print('Usage: python3 0-gather_data_from_an_API.py <employee_id>')
+        sys.exit(1)
+
+    employee_id = int(sys.argv[1])
+    get_employee_todo
