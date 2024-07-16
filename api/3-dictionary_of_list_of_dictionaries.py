@@ -1,16 +1,17 @@
-#!/usr/bin/python3
-
 """
-Fetches and processes todos and users data from JSONPlaceholder API,
+Fetches and processes todos and users data from JSONPlaceholder API, 
 and exports the result to a JSON file.
 """
 
 import json
 import requests
+import os
 
 
 def get_tasks():
-    """Fetches and processes todos and users data from JSONPlaceholder API."""
+    """
+    Fetches and processes todos and users data from JSONPlaceholder API.
+    """
     url = "https://jsonplaceholder.typicode.com/todos"
     response = requests.get(url)
     todos = response.json()
@@ -36,9 +37,13 @@ def get_tasks():
 
 
 def export_to_json(tasks):
-    """Exports tasks dictionary to a JSON file."""
-    with open("todo_all_employees.json", "w") as json_file:
+    """
+    Exports tasks dictionary to a JSON file.
+    """
+    filename = "todo_all_employees.json"
+    with open(filename, "w") as json_file:
         json.dump(tasks, json_file, indent=4)
+    print(f"File {filename} created successfully.")
 
 
 if __name__ == "__main__":
