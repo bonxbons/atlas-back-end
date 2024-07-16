@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 
-import csv
-import requests
-import sys
-
 """
 Exports tasks of a given employee to a CSV file.
 
 Usage: python3 1-export_to_CSV.py <employee_id>
 """
+
+import csv
+import requests
+import sys
 
 if __name__ == "__main__":
     # Check if the employee ID is provided as a command-line argument
