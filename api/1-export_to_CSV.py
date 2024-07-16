@@ -2,8 +2,6 @@
 
 """
 Exports tasks of a given employee to a CSV file.
-
-Usage: python3 1-export_to_CSV.py <employee_id>
 """
 
 import csv
