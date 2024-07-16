@@ -12,7 +12,7 @@ import sys
 
 if __name__ == "__main__":
     # Check if the employee ID is provided as a command-line argument
-    if len(sys.argv)!= 2:
+    if len(sys.argv) != 2:  # Added whitespace around !=
         print("Usage: python3 1-export_to_CSV.py <employee_id>")
         sys.exit(1)
 
@@ -25,7 +25,9 @@ if __name__ == "__main__":
     todos = response.json()
 
     # Fetch the employee data from the JSONPlaceholder API
-    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
+    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(
+        employee_id
+    )  # Split the long line
     employee_response = requests.get(employee_url)
     employee = employee_response.json()
 
