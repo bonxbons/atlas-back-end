@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """
-Fetches and processes todos and users data from JSONPlaceholder API, 
+Fetches and processes todos and users data from JSONPlaceholder API,
 and exports the result to a JSON file.
 """
 
 import json
 import requests
 import os
+
 
 def get_tasks():
     """Fetches and processes todos and users data from JSONPlaceholder API."""
