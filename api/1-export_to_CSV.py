@@ -15,3 +15,17 @@ if __name__ == "__main__":
 
     employee_id = int(sys.argv[1])
 
+    url = "https://jsonplaceholder.typicode.com/todos"
+    response = requests.get(url)
+    todos = response.json()
+
+    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
+    employee_response = requests.get(employee_url)
+    employee = employee_response.json()
+
+    employee_name = employee.get("name")
+
+    with open("{}.csv".format(employee_id), "w", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+
