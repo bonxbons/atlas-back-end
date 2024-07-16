@@ -36,25 +36,27 @@ if __name__ == "__main__":
     with open("{}.csv".format(employee_id), "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         # Write the header row
-        writer.writerow([
-            "USER_ID",  
-            "USERNAME",  
-            "TASK_COMPLETED_STATUS",  
-            "TASK_TITLE"  
-        ])
+        header = [
+            "USER_ID",
+            "USERNAME",
+            "TASK_COMPLETED_STATUS",
+            "TASK_TITLE"
+        ]
+        writer.writerow(header)
 
-        task_count = 0  
+        task_count = 0
 
         # Loop through the todos and write each task to the CSV file
         for todo in todos:
             if todo.get("userId") == employee_id:
-                writer.writerow([
-                    employee_id,  
-                    employee_name,  
-                    todo.get("completed"),  
-                    todo.get("title")  
-                ])
-                task_count += 1  
+                row = [
+                    employee_id,
+                    employee_name,
+                    todo.get("completed"),
+                    todo.get("title")
+                ]
+                writer.writerow(row)
+                task_count += 1
 
     # Print the number of tasks in the CSV file
     print("Number of tasks in CSV: {}".format(task_count))
