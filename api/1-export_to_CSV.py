@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     # Get the employee name
     employee_name = employee.get("name")
-    
+
     # Print the employee name for debugging
     print(f"Employee Name: {employee_name}")
 
@@ -61,7 +61,8 @@ if __name__ == "__main__":
                 ]
                 writer.writerow(row)
                 task_count += 1
-                print(f"Task added: {todo.get('title')} (Completed: {todo.get('completed')})")
+                print(f"Task added: {todo.get('title')} (Completed: "
+                      f"{todo.get('completed')})")
 
     # Print the number of tasks in the CSV file
     print(f"Number of tasks in CSV: {task_count}")
