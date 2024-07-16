@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Fetches and processes todos and users data from JSONPlaceholder API, 
 and exports the result to a JSON file.
