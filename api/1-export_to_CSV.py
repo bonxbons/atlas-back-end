@@ -25,7 +25,9 @@ if __name__ == "__main__":
     todos = response.json()
 
     # Fetch the employee data from the JSONPlaceholder API
-    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
+    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(
+        employee_id
+    )
     employee_response = requests.get(employee_url)
     employee = employee_response.json()
 
