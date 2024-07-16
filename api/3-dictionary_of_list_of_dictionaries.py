@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 
 """
-Exports tasks of a given employee to a JSON file.
-
-Usage: python3 2-export_to_JSON.py <employee_id>
+Fetches and processes todos and users data from JSONPlaceholder API, 
+and exports the result to a JSON file.
 """
 
 import json
 import requests
-import sys
 
-if __name__ == "__main__":
-    # Check if the employee ID is provided as a command-line argument
-    if len(sys.argv)!= 2:
-        print("Usage: python3 2-export_to_JSON.py <employee_id>")
-        sys.exit(1)
+
+def get_tasks():
+    """Fetches and processes todos and users data from JSONPlaceholder API."""
+    url = "https://jsonplaceholder.typicode.com/todos"
+    response = requests.get(url)
+    todos = response.json()
