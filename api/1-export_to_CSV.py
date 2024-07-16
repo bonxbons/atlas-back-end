@@ -36,7 +36,12 @@ if __name__ == "__main__":
     with open("{}.csv".format(employee_id), "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         # Write the header row
-        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+        writer.writerow([
+            "USER_ID",  # USER_ID
+            "USERNAME",  # USERNAME
+            "TASK_COMPLETED_STATUS",  # TASK_COMPLETED_STATUS
+            "TASK_TITLE"  # TASK_TITLE
+        ])
 
         # Loop through the todos and write each task to the CSV file
         for todo in todos:
