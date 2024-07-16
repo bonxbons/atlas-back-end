@@ -2,8 +2,6 @@
 
 """
 Exports tasks of a given employee to a JSON file.
-
-Usage: python3 2-export_to_JSON.py <employee_id>
 """
 
 import json
