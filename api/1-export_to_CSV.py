@@ -58,6 +58,7 @@ if __name__ == "__main__":
                 ]
                 writer.writerow(row)
                 task_count += 1
+                print(f"Task added: {todo.get('title')}")
 
     # Print the number of tasks in the CSV file
     print("Number of tasks in CSV: {}".format(task_count))
