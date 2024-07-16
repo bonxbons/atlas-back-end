@@ -61,8 +61,4 @@ if __name__ == "__main__":
         reader = csv.reader(csvfile)
         next(reader)  # Skip the header row
         task_count = sum(1 for row in reader)
-
-    if task_count > 0:
-        print("Number of tasks in CSV: OK")
-    else:
-        print("Number of tasks in CSV: Incorrect")
+        
