@@ -29,3 +29,11 @@ if __name__ == "__main__":
         writer = csv.writer(csvfile)
         writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
+        for todo in todos:
+            if todo.get("userId") == employee_id:
+                writer.writerow([
+                    employee_id,
+                    employee_name,
+                    todo.get("completed"),
+                    todo.get("title")
+                ])
