@@ -25,9 +25,7 @@ if __name__ == "__main__":
     todos = response.json()
 
     # Fetch the employee data from the JSONPlaceholder API
-    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(
-        employee_id
-    )
+    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
     employee_response = requests.get(employee_url)
     employee = employee_response.json()
 
@@ -59,6 +57,11 @@ if __name__ == "__main__":
                 task_count += 1  # Increment task count
 
     # Print the number of tasks in the CSV file
+    with open("{}.csv".format(employee_id), "r") as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip the header row
+        task_count = sum(1 for row in reader)
+
     if task_count > 0:
         print("Number of tasks in CSV: OK")
     else:
