@@ -32,3 +32,22 @@ if __name__ == "__main__":
 
     # Get the employee name
     employee_name = employee.get("name")
+
+    # Create a dictionary to store the tasks
+    tasks = {str(employee_id): []}
+
+    # Loop through the todos and add each task to the dictionary
+    for todo in todos:
+        if todo.get("userId") == employee_id:
+            task = {
+                "task": todo.get("title"),
+                "completed": todo.get("completed"),
+                "username": employee_name
+            }
+            tasks[str(employee_id)].append(task)
+
+    # Open the JSON file for writing
+    with open("{}.json".format(employee_id), "w") as json_file:
+        json.dump(tasks, json_file, indent=4)
+
+    print("JSON file created successfully!")
