@@ -33,3 +33,14 @@ def get_tasks():
                 tasks[user_id].append(task)
 
     return tasks
+
+
+def export_to_json(tasks):
+    """Exports tasks dictionary to a JSON file."""
+    with open("todo_all_employees.json", "w") as json_file:
+        json.dump(tasks, json_file, indent=4)
+
+
+if __name__ == "__main__":
+    tasks = get_tasks()
+    export_to_json(tasks)
